@@ -21,6 +21,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+//en esta pagina, debes estar logueado para ver el contenido, en caso contrario, solo se mostrara el welcome blade
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -31,7 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/usuarios', [ProfileController::class, 'index'])->name('users.index');
     Route::get('/usuarios/rol', [ProfileController::class, 'updateRol']);
-
     Route::get('/centros', [centrosController::class, 'index'])->name('centros.index');
     Route::get('/noticias', [noticiasController::class, 'index'])->name('noticias.index');
     Route::get('/centros/nuevo', [centrosController::class, 'create']);
@@ -51,14 +52,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/citas/pacientes', [citasController::class, 'citaPacientes']);
     Route::get('/noticias/borrar/{noticia}', [noticiasController::class, "destroy"])->name("noticias.destroy");
     Route::get('/noticias/borrar/{noticia}/centro', [noticiasController::class, "centroDestroy"])->name("noticias.destroy");
-    Route::get('/citas/borrar/{fechainicio}', [citasController::class, 'destroy']);
-
-///usuario/{user}/medico/{user}/centro/{centro}
 });
 
-Route::middleware(['auth', 'rol:medico'])->group(function () {
-    
-});
+
 
 
 

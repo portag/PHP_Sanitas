@@ -31,7 +31,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return view('web.usuarios', ['users'=>User::all()]); 
+        return view('web.usuarios', ['users'=>User::Paginate(10)]); 
 
     }
 

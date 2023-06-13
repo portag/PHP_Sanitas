@@ -28,7 +28,7 @@
                 locale: 'es',
                 initialView: 'timeGridWeek',
                 slotMinTime: '07:00:00',
-                slotMaxTime: '22:00:00',
+                slotMaxTime: '22:30:00',
                 allDaySlot: false,
                 hiddenDays: [6, 0],
                 events: @json($events),

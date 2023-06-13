@@ -15,29 +15,45 @@
         text-decoration: none
     }
 
-    td{
+    td {
         text-align: center;
     }
+
     body {
         background-color: whitesmoke
     }
 
-    footer{
+    nav {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .mouse a:hover {
+        background: linear-gradient(to top, rgba(0, 128, 0, 0.9), rgba(0, 128, 0, 0.3));
+    }
+
+    footer {
+        font-weight: bold;
+    }
+
+    .contenedor {
+        padding-top: 2px;
+        padding-bottom: 2px;
     }
 </style>
 
 <body class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top" style="">
+        <div class="contenedor container-fluid">
 
-            <a class="navbar-brand" href="/">
+            <a class="nada navbar-brand" href="/" style="font-size: 22px">
 
                 Sanitas Corner</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="mouse collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="/centros">Centros</a>
                     <a class="nav-link active" aria-current="page" href="/noticias">Noticias</a>

@@ -104,7 +104,7 @@ class citasController extends Controller
         foreach ($appointments as $appointment) {
 
             if ($appointment->medico_id == $usuario && $appointment->estado == 'abierta') {
-
+                //devuelve el nombre de los parametros de la cita, en este caso, solo pasamos 3
                 $events[] = [
                     'title' => 'Centro: ' . $centro->nombre,
                     'start' => $appointment->fechainicio,
@@ -187,11 +187,9 @@ class citasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cita $cita)
+    public function destroy()
     {
 
-        // Realiza las operaciones necesarias para eliminar la cita
-        $cita->delete();
-        return redirect('citas');
+        
     }
 }

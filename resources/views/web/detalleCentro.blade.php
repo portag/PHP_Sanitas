@@ -51,7 +51,7 @@
                 <td>LOCALIDAD</td>
                 <td>TELEFONO</td>
                 <td>IMAGEN</td>
-                <td>BOTONES</td>
+                <td>ACCIONES</td>
             </tr>
 
             <tr>
@@ -63,6 +63,8 @@
                 <td><a href="/centros/{{ $centro->id }}/usuario/{{ Auth::user()->id }}"
                         class="btn btn-outline-info">+</a>
                     <a href="/centros/noticias/{{ $centro->id }}" class="btn btn-outline-success">N</a>
+                    <a href="/centros/borrar/{{ $centro->id }}" class="btn btn-outline-danger">B</a>
+
                 </td>
 
             </tr>
@@ -83,7 +85,7 @@
                 <td>NOMBRE</td>
                 <td>EMAIL</td>
                 <td>ESPECIALIDAD</td>
-                <td>OTROS</td>
+                <td>ACCIONES</td>
             </tr>
             @foreach ($usuarios as $usuario)
                 <tr>
@@ -91,7 +93,7 @@
                     <td>{{ $usuario->email }}</td>
                     <td>{{ $usuario->especialidad }}</td>
 
-                    <td class="d-flex">
+                    <td class="d-flex justify-content-center">
                         @if (Auth::user()->id != $usuario->id)
                             <form action="/citas/nueva/{{ $centro->id }}">
                                 @csrf

@@ -16,6 +16,12 @@
                     <x-nav-link :href="url('/')">
                         {{ __('Portal de sanitas') }}
                     </x-nav-link>
+                    <x-nav-link :href="url('/centros')">
+                        {{ __('Centros') }}
+                    </x-nav-link>
+                    <x-nav-link :href="url('/citas')">
+                        {{ __('Tus citas') }}
+                    </x-nav-link>
                 </div>
                 
             </div>
