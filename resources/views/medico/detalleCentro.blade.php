@@ -59,6 +59,7 @@
             max-height: 350px;
             overflow: auto;
         }
+
         .title {
             text-align: center;
             margin-top: 60px;
@@ -77,7 +78,7 @@
         }
     </style>
 
-  
+
     <h5 class="title">DETALLES DEL CENTRO</h5>
     <hr class="separator mx-3">
 
@@ -177,7 +178,7 @@
                 </ul>
             </div>
         @endforeach
-        {{$usuarios->links()}}
+        {{ $usuarios->links() }}
 
     </div>
 
@@ -198,6 +199,7 @@
             container: 'map',
             style: 'mapbox://styles/mapbox/outdoors-v12',
 
+            //centra el mapa en la localizacion del marker
             center: [{{ $centro->longitud }}, {{ $centro->latitud }}],
             zoom: zoom
         });

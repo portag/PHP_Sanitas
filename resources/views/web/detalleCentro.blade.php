@@ -135,6 +135,7 @@
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/outdoors-v12',
+            //centra el mapa en la localizacion del marker
 
             center: [{{ $centro->longitud }}, {{ $centro->latitud }}],
             zoom: zoom
