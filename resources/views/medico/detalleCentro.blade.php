@@ -1,4 +1,4 @@
-@extends('medico.layout')
+{{-- @extends('medico.layout')
 
 
 
@@ -213,4 +213,4 @@
             }
         });
     </script>
-@endsection
+@endsection --}}

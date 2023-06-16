@@ -1,4 +1,4 @@
-@extends('usuario.layout')
+{{-- @extends('usuario.layout')
 
 
 
@@ -216,4 +216,4 @@
 
 
 
-
+ --}}
