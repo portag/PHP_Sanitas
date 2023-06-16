@@ -1,4 +1,4 @@
-{{-- @extends('web.layout')
+@extends('web.layout')
 
 
 
@@ -150,4 +150,4 @@
             }
         });
     </script>
-@endsection --}}
+@endsection

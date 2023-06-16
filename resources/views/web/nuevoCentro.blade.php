@@ -1,4 +1,4 @@
-{{-- @extends('web.layout')
+@extends('web.layout')
 
 
 
@@ -144,4 +144,4 @@
 
         </div>
     </div>
-@endsection --}}
+@endsection
