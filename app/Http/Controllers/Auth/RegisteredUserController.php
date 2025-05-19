@@ -32,7 +32,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -41,20 +41,26 @@ class RegisteredUserController extends Controller
         $password = $request->input('password');
         $dni = $request->input('dni');
         $tarjetasanitaria = $request->input('tarjetasanitaria');
-        $path = $request->file('imagen')->store('public');
-        $imagen =  str_replace('public', 'storage', $path);
-
+        if ($request->hasFile('imagen')) {
+            $path = $request->file('imagen')->store('public');
+            $imagen = str_replace('public', 'storage', $path);
+        } else {
+            // Cuando no hay archivo subido, usar el valor del input hidden (la URL)
+            $imagen = $request->input('imagen');
+        }
        
 
-         $user = User::create([
-             'name' => $name,
-             'email' => $email,
-             'password' => Hash::make($password),
-             'fnacimiento' => $request->fnacimiento,
-             'dni' => $dni,
-             'tarjetasanitaria' => $tarjetasanitaria,
-             'imagen' => $imagen
-         ]);
+
+
+        $user = User::create([
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make($password),
+            'fnacimiento' => $request->fnacimiento,
+            'dni' => $dni,
+            'tarjetasanitaria' => $tarjetasanitaria,
+            'imagen' => $imagen
+        ]);
 
         event(new Registered($user));
 

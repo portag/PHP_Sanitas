@@ -46,11 +46,16 @@
         </div>
 
 
-        <!-- imagen -->
+        <!-- imagen
 
         <div>
             <x-input-label for="imagen" :value="__('Imagen')" />
             <input id="imagen" type="file" name="imagen" class="block mt-1 w-full">
+        </div>
+ -->
+        <div>
+            <x-input-label for="imagen" />
+            <input id="imagen" type="hidden" name="imagen" value="/storage/default_profile_pic.png">
         </div>
 
 
