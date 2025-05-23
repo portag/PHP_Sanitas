@@ -18,6 +18,79 @@
 
 
         }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: #f9fbfd;
+            padding: 2rem;
+            color: #1a2b49;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: #1d1d1d;
+        }
+        .footer {
+            background-color: #1e3a5f;
+            color: white;
+            padding: 2rem 1rem 1rem;
+            text-align: center;
+        }
+
+        .footer-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer .feature-card {
+            max-width: 200px;
+            text-align: center;
+        }
+
+        .footer .feature-card img {
+            width: 40px;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer .feature-card h4 {
+            margin: 0.5rem 0 0.2rem;
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
+        .footer .feature-card p {
+            font-size: 0.9rem;
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #ffffff22;
+            padding-top: 1rem;
+            font-size: 0.85rem;
+            color: #ccc;
+        }
     </style>
 
 

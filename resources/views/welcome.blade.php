@@ -174,8 +174,6 @@
                 @endif
             @endauth
 
-
-            <a href="/">Portal</a>
         </nav>
     </header>
 
@@ -207,22 +205,22 @@
         <div class="feature-card">
             <img src="https://img.icons8.com/ios-filled/50/000000/marker.png" alt="Find a Doctor" />
             <h4>Encuentra un doctor</h4>
-            <p>Lorem ipsum dolor</p>
+            <p>Profesional cualificado</p>
         </div>
         <div class="feature-card">
             <img src="https://img.icons8.com/ios-filled/50/000000/planner.png" alt="Appointment" />
             <h4>Programa tus citas</h4>
-            <p>Lorem ipsum dolor</p>
+            <p>Calendario interactivo</p>
         </div>
         <div class="feature-card">
             <img src="https://img.icons8.com/ios-filled/50/000000/money.png" alt="Qualified" />
             <h4>Servicio profesional</h4>
-            <p>Lorem ipsum dolor</p>
+            <p>Instalaciones avanzadas</p>
         </div>
         <div class="feature-card">
             <img src="https://img.icons8.com/ios-filled/50/000000/clock.png" alt="24 Hours" />
             <h4>Servicio 24h</h4>
-            <p>Lorem ipsum dolor</p>
+            <p>Disponibilidad completa</p>
         </div>
     </div>
 
