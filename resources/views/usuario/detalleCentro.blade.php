@@ -4,6 +4,37 @@
 
 @section('main')
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: #f9fbfd;
+            padding: 2rem;
+            color: #1a2b49;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: #1d1d1d;
+        }
+
         h3 {
             height: 100px;
             width: 150px;
@@ -59,6 +90,7 @@
             max-height: 350px;
             overflow: auto;
         }
+
         .title {
             text-align: center;
             margin-top: 60px;
@@ -75,11 +107,18 @@
             background-color: #333;
             margin: 10px 0;
         }
+        h1{
+            text-align: center;
+            padding: 20px;
+        }
+        h2{
+            text-align: center;
+            padding: 20px;
+        }
     </style>
 
-  
-    <h5 class="title">DETALLES DEL CENTRO</h5>
-    <hr class="separator mx-3">
+
+    <h1>Detalles del centro</h1>
 
     <div class="centro card-container">
         <div class="row">
@@ -131,8 +170,8 @@
     </div>
 
 
-    <h5 class="title">PLANTILLA DISPONIBLE</h5>
-    <hr class="separator mx-3">
+    <h2>Plantilla disponible</h2>
+
 
 
 
@@ -140,25 +179,25 @@
 
     <div class="card-container">
         @foreach ($usuarios as $usuario)
-        @if(Auth::user()->id != $usuario->id)
-            <div class="usuario card" style="width: 300px;">
-                <!-- Contenido del card -->
-                <img src="{{ asset($usuario->imagen) }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title" style="text-align: center;">{{ $usuario->name }}</h5>
-                </div>
-                <ul class="list-group list-group-flush text-center">
-                    <li class="list-group-item">Especialidad: {{ $usuario->especialidad }}</li>
-                    <li class="list-group-item">
-                        @if ($usuario->id == Auth::user()->id)
-                            <a href="/centros/{{ $centro->id }}/usuario/{{ Auth::user()->id }}/borrar"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-x-circle" viewBox="0 0 16 16">
-                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                    <path
-                                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                                </svg></a>
-                        @endif
+            @if (Auth::user()->id != $usuario->id)
+                <div class="usuario card" style="width: 300px;">
+                    <!-- Contenido del card -->
+                    <img src="{{ asset($usuario->imagen) }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: center;">{{ $usuario->name }}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item">Especialidad: {{ $usuario->especialidad }}</li>
+                        <li class="list-group-item">
+                            @if ($usuario->id == Auth::user()->id)
+                                <a href="/centros/{{ $centro->id }}/usuario/{{ Auth::user()->id }}/borrar"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-x-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                        <path
+                                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                    </svg></a>
+                            @endif
                             <form action="/citas/nueva/{{ $centro->id }}">
                                 @csrf
 
@@ -172,12 +211,12 @@
                                             d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
                                     </svg></button>
                             </form>
-                    </li>
-                </ul>
-            </div>
-        @endif
+                        </li>
+                    </ul>
+                </div>
+            @endif
         @endforeach
-        {{$usuarios->links()}}
+        {{ $usuarios->links() }}
 
     </div>
 
@@ -213,7 +252,3 @@
         });
     </script>
 @endsection
-
-
-
-

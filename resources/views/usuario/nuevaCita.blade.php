@@ -6,6 +6,38 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
 
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: #f9fbfd;
+            padding: 2rem;
+            color: #1a2b49;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: #1d1d1d;
+        }
+
+
         #calendar {
             margin: 40px;
         }
@@ -26,10 +58,10 @@
             margin-left: 30px;
             margin-top: 30px;
         }
+        
     </style>
 
-    <form method="POST" id="miFormulario" enctype="multipart/form-data" action='/citas/crear'
-        onsubmit="return confirmarCita()">
+    <form method="POST" id="miFormulario" enctype="multipart/form-data" action='/citas/crear' onsubmit="return confirmarCita()">
         @csrf
 
         <!-- id paciente -->

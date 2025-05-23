@@ -4,6 +4,37 @@
 
 @section('main')
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: #f9fbfd;
+            padding: 2rem;
+            color: #1a2b49;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: #1d1d1d;
+        }
+
         .card {
             margin-bottom: 20px;
             margin-left: 10px;
@@ -49,7 +80,7 @@
             letter-spacing: 2px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
-        
+
         .card-text {
             max-height: 350px;
             overflow: auto;
@@ -65,44 +96,35 @@
             background-color: #333;
             margin: 10px 0;
         }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+        }
     </style>
 
 
 
-
-
-
-
-
-
-    <h5 class="title" style="text-transform: uppercase">NOTICIAS DEL CENTRO {{ $centro->nombre }}</h5>
-    <hr class="separator mx-3">
+    <h1>Anuncios de {{ $centro->nombre }}</h1>
 
 
     <div class="card-container">
 
-        <div class="card" style="width: 80%;">
+        <ul class="list-group list-group-flush text-center">
 
-            <img src="{{ asset($centro->imagen) }}" class="card-img-top" alt="...">
+            <li class="list-group-item">
+                <a href="/centros/{{ $centro->id }}" class="btn btn-outline-primary">Portal del centro<svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                    </svg></a>
+            </li>
 
-            <ul class="list-group list-group-flush text-center">
+        </ul>
 
-                <li class="list-group-item">
-                    <a href="/centros/{{ $centro->id }}" class="btn btn-outline-primary">Portal del centro<svg
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-arrow-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                        </svg></a>
-                </li>
-
-            </ul>
-
-        </div>
 
     </div>
-
-
 
 
     <div class="noticias card-container">
@@ -116,7 +138,7 @@
                 </div>
             </div>
         @endforeach
-        {{$noticias->links()}}
+        {{ $noticias->links() }}
 
     </div>
 @endsection

@@ -167,6 +167,9 @@
         <nav>
             @auth
                 <a href="{{ url('/citas') }}">Tus citas</a>
+                <a href="{{ url('/centros') }}">Centros</a>
+                <a href="{{ url('/noticias') }}">Anuncios</a>
+                <a href="{{ url('/profile') }}">Perfil</a>
             @else
                 <a href="{{ route('login') }}">Iniciar sesión</a>
                 @if (Route::has('register'))
@@ -191,7 +194,8 @@
             <p>
                 Nos comprometemos a brindarte una experiencia médica accesible, rápida y de calidad desde cualquier
                 lugar.
-                <br><em style="color: rgb(26, 123, 90)">Tu bienestar es nuestra prioridad, y estamos aquí para cuidarte.</em>
+                <br><em style="color: rgb(26, 123, 90)">Tu bienestar es nuestra prioridad, y estamos aquí para
+                    cuidarte.</em>
             </p>
 
         </div>

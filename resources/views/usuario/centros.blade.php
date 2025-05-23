@@ -4,6 +4,39 @@
 
 @section('main')
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: #f9fbfd;
+            padding: 2rem;
+            color: #1a2b49;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: #1d1d1d;
+        }
+
+
+
         .dropdown {
             position: relative;
             display: inline-block;
@@ -39,9 +72,9 @@
             margin-left: 30px;
         }
 
-       
 
-        .card{
+
+        .card {
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
@@ -64,6 +97,7 @@
             max-height: 350px;
             overflow: auto;
         }
+
         .title {
             text-align: center;
             margin-top: 60px;
@@ -80,10 +114,15 @@
             background-color: #333;
             margin: 10px 0;
         }
+
+        h1{
+            text-align: center;
+            padding: 20px;
+        }
     </style>
 
-    <h5 class="title">CENTROS DISPONIBLES</h5>
-    <hr class="separator mx-3">
+    <h1>Centros disponibles</h1>
+
 
 
     {{-- filtrado de especialidad --}}
@@ -97,9 +136,11 @@
                     <option value="Oftalmologo">Oftalmologo</option>
                     <option value="General">General</option>
                 </select>
-                <button class="btn btn-outline-primary d-flex" type="submit">Buscar<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                  </svg></button>
+                <button class="btn btn-outline-primary d-flex" type="submit">Buscar<svg xmlns="http://www.w3.org/2000/svg"
+                        width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg></button>
             </div>
         </form><br>
 
@@ -139,7 +180,7 @@
 
             </div>
         @endforeach
-        {{$centros->links()}}
+        {{ $centros->links() }}
 
     </div>
 @endsection
