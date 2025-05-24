@@ -1,7 +1,5 @@
 @extends('usuario.layout')
 
-
-
 @section('main')
     <style>
         * {
@@ -35,220 +33,247 @@
             color: #1d1d1d;
         }
 
-        h3 {
-            height: 100px;
-            width: 150px;
-            background-repeat: no-repeat;
-            background-image: url("{{ asset($centro->imagen) }}");
-            background-size: 10rem;
-            text-align: center;
-        }
 
-        .centro {
+        /* Estructura principal */
+        .page-container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px;
+            flex-direction: column;
+            flex: 1;
+            padding: 2rem 2rem 1rem;
+
         }
 
-        .imagen {
+        /* Sección superior: Centro médico */
+        .centro-section {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .centro-card {
+            flex: 1;
+            background-color: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            /* Añadido para estructura vertical */
+        }
+
+        .centro-card img {
             width: 100%;
-            height: 297px;
+            height: auto;
+            /* Cambiado de height fijo a auto */
+            object-fit: contain;
+            /* Cambiado de 'cover' a 'contain' para ver imagen completa */
+            display: block;
+            max-height: 300px;
+            /* Límite máximo pero mantiene proporciones */
+        }
+
+        .centro-content {
+            padding: 1.5rem;
+        }
+
+        .centro-content h2 {
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            color: #333;
+        }
+
+        .centro-content p {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        /* Sección de filtro */
+        .filtro-section {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .filtro-especialidad-form {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .filtro-especialidad-form label {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .filtro-especialidad-form select {
+            padding: 0.6rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            flex-grow: 1;
+            max-width: 300px;
+        }
+
+        .filtro-especialidad-form button {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .filtro-especialidad-form button:hover {
+            background-color: #0069d9;
+        }
+
+        /* Sección de médicos */
+        .doctores-section {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            /* Reducido de 2rem a 1rem */
+        }
+
+        .doctores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .doctor-card {
+            display: flex;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            align-items: stretch;
+            height: 100%;
+            min-height: 140px;
+            width: 100%;
+        }
+
+        .doctor-card img {
+            width: 90px;
+            height: 90px;
             object-fit: cover;
-        }
-
-        .usuario {
-            transition: transform 0.3s ease;
-        }
-
-        .usuario:hover {
-            transform: scale(1.05);
-        }
-
-        .card {
-            margin-bottom: 20px;
-            margin-left: 10px;
+            border-radius: 50%;
             margin-right: 10px;
         }
 
-        .card-container {
+        .doctor-info {
+            flex-grow: 1;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .card-img-top {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
+        .doctor-info h3 {
+            margin-bottom: 0.3rem;
+            font-size: 1.2rem;
         }
 
-        .card-text {
-            max-height: 350px;
-            overflow: auto;
+        .doctor-info p {
+            margin-bottom: 0.5rem;
+            color: #666;
+            font-size: 0.95rem;
         }
 
-        .title {
-            text-align: center;
-            margin-top: 60px;
-            font-size: 28px;
-            color: #333;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        .doctor-actions {
+            display: flex;
+            align-items: flex-end;
+            margin-left: 1rem;
         }
 
-        .separator {
+        .doctor-actions button {
+            padding: 0.5rem 1rem;
             border: none;
-            height: 2px;
-            background-color: #333;
-            margin: 10px 0;
-        }
-        h1{
+            border-radius: 6px;
             text-align: center;
-            padding: 20px;
+            background-color: #17a2b8;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+            width: 120px;
         }
-        h2{
-            text-align: center;
-            padding: 20px;
+
+        .doctor-actions button:hover {
+            background-color: #138496;
+        }
+
+        /* Paginación */
+        .pagination-container {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 1rem;
         }
     </style>
 
-
-    <h1>Detalles del centro</h1>
-
-    <div class="centro card-container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card" style="width: 500px;">
-                    <!-- Contenido del card -->
-                    <img src="{{ asset($centro->imagen) }}" class="imagen card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title" style="text-align: center;">{{ $centro->nombre }}</h5>
-                    </div>
-                    <ul class="list-group list-group-flush text-center">
-                        <li class="list-group-item">
-                            Localidad: {{ $centro->localidad }}
-                        </li>
-                        <li class="list-group-item">Teléfono: {{ $centro->telefono }}</li>
-                        <li class="list-group-item">
-                            @if (Auth::user()->especialidad != 'paciente')
-                                <a href="/centros/{{ $centro->id }}/usuario/{{ Auth::user()->id }}"
-                                    class="btn btn-outline-info">Inscribirse <svg xmlns="http://www.w3.org/2000/svg"
-                                        width="16" height="16" fill="currentColor" class="bi bi-file-plus"
-                                        viewBox="0 0 16 16">
-                                        <path
-                                            d="M8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5V6z" />
-                                        <path
-                                            d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z" />
-                                    </svg></a>
-                            @endif
-                            <a href="/centros/noticias/{{ $centro->id }}" class="btn btn-outline-success">Noticias<svg
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-newspaper" viewBox="0 0 16 16">
-                                    <path
-                                        d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z" />
-                                    <path
-                                        d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z" />
-                                </svg></a>
-
-                        </li>
-                    </ul>
+    <div class="page-container">
+        <!-- Sección del centro médico -->
+        <section class="centro-section">
+            <div class="centro-card">
+                <img src="{{ asset($centro->imagen) }}" alt="Imagen del centro médico">
+                <div class="centro-content">
+                    <h2>{{ $centro->nombre }}</h2>
+                    <p>Dirección: {{ $centro->localidad }}</p>
+                    <p>Teléfono: {{ $centro->telefono }}</p>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="">
-                    <div id="map" style="width: 500px; height:603px; border-radius:10px;">
+        </section>
 
-                    </div>
-                </div>
+        <!-- Sección de filtro -->
+        <section class="filtro-section">
+            <form method="GET" action="/medicos/filtro/{{ $centro->id }}" class="filtro-especialidad-form">
+                <label for="especialidad">Filtrar por especialidad:</label>
+                <select name="especialidad" id="seleccion">
+                    <option value="Fisioterapeuta">Fisioterapeuta</option>
+                    <option value="Pediatra">Pediatra</option>
+                    <option value="Cardiologo">Cardiologo</option>
+                    <option value="Oftalmologo">Oftalmologo</option>
+                    <option value="General">General</option>
+                </select>
+                <button type="submit">Filtrar</button>
+            </form>
+        </section>
+
+        <!-- Sección de médicos -->
+        <section class="doctores-section">
+            <h2>Nuestros Doctores</h2>
+            <div class="doctores-grid">
+                @foreach ($usuarios as $usuario)
+                    @if (Auth::user()->id != $usuario->id)
+                        <div class="doctor-card">
+                            <img src="{{ asset($usuario->imagen) }}" alt="Foto de {{ $usuario->name }}">
+                            <div class="doctor-info">
+                                <h3>{{ $usuario->name }}</h3>
+                                <p>Especialidad: {{ $usuario->especialidad }}</p>
+                            </div>
+                            <div class="doctor-actions">
+                                <form action="/citas/nueva/{{ $centro->id }}">
+                                    @csrf
+                                    <input type="hidden" name="medico" value="{{ $usuario->id }}">
+                                    <button type="submit" style="margin-right: 10px;">Consultar cita</button>
+                                </form>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
             </div>
+        </section>
+
+        <!-- Paginación -->
+        <div class="pagination-container">
+            {{ $usuarios->links() }}
         </div>
     </div>
-
-
-    <h2>Plantilla disponible</h2>
-
-
-
-
-
-
-    <div class="card-container">
-        @foreach ($usuarios as $usuario)
-            @if (Auth::user()->id != $usuario->id)
-                <div class="usuario card" style="width: 300px;">
-                    <!-- Contenido del card -->
-                    <img src="{{ asset($usuario->imagen) }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title" style="text-align: center;">{{ $usuario->name }}</h5>
-                    </div>
-                    <ul class="list-group list-group-flush text-center">
-                        <li class="list-group-item">Especialidad: {{ $usuario->especialidad }}</li>
-                        <li class="list-group-item">
-                            @if ($usuario->id == Auth::user()->id)
-                                <a href="/centros/{{ $centro->id }}/usuario/{{ Auth::user()->id }}/borrar"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-x-circle" viewBox="0 0 16 16">
-                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                        <path
-                                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                                    </svg></a>
-                            @endif
-                            <form action="/citas/nueva/{{ $centro->id }}">
-                                @csrf
-
-                                <input type="hidden" name="medico" value="{{ $usuario->id }}">
-                                <button type="submit" class="btn btn-outline-info">Consultar cita<svg
-                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-calendar-event" viewBox="0 0 16 16">
-                                        <path
-                                            d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
-                                        <path
-                                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                                    </svg></button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            @endif
-        @endforeach
-        {{ $usuarios->links() }}
-
-    </div>
-
-
-
-
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css" rel="stylesheet" />
-    <?php $urlImagen = $centro->imagen; ?>
-    <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoicG9ydGl0YSIsImEiOiJjbGhweXg1bXkyM3kzM2VveDRrOWs1d2NuIn0.SjXn4zc_vBaPpwAEWH3r2Q';
-        var markers = [
-            ['<?php echo $centro->nombre; ?>', {{ $centro->longitud }}, {{ $centro->latitud }}]
-        ];
-        var zoom = 10;
-
-        var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/outdoors-v12',
-            //centra el mapa en la localizacion del marker
-
-            center: [{{ $centro->longitud }}, {{ $centro->latitud }}],
-            zoom: zoom
-        });
-
-        map.on('load', function() {
-            for (var i = 0; i < markers.length; i++) {
-                new mapboxgl.Marker()
-                    .setLngLat([markers[i][1], markers[i][2]])
-                    .setPopup(new mapboxgl.Popup().setHTML('<h3>' + markers[i][0] + '</h3>'))
-                    .addTo(map);
-            }
-        });
-    </script>
 @endsection

@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/centros/nuevo', [centrosController::class, 'create']);
     Route::post('/centros/crear', [centrosController::class, 'store']);
     Route::get('/centros/filtro', [centrosController::class, 'indexFiltro']);
+    Route::get('/medicos/filtro/{centro}', [centrosController::class, 'filtroMedico']);
     Route::get('/centros/{centro}', [centrosController::class, "show"])->name("centros.show");
     Route::get('/centros/borrar/{centro}', [centrosController::class, "destroy"])->name("centros.destroy");
     Route::get('/centros/noticias/{centro}', [centrosController::class, "showNoticias"])->name("noticias.showNoticias");

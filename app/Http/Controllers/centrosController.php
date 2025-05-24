@@ -58,6 +58,53 @@ class centrosController extends Controller
         }
     }
 
+
+    public function filtroMedico($id, Request $request)
+    {
+        $centro = Centro::findOrFail($id);
+        $especialidad = $request->input('especialidad'); // Obtener la especialidad del formulario
+
+        $usuariosQuery = $centro->componentes();
+
+        // Si hay filtro, lo aplicamos
+        if ($especialidad) {
+            $usuariosQuery->where('especialidad', $especialidad);
+        }
+
+        $usuarios = $usuariosQuery->paginate(8);
+        
+        if (isset(Auth::user()->rol)) {
+            if (Auth::user()->rol == 'admin') {
+                return view('web.detalleCentro', [
+                'centro' => $centro,
+                'usuarios' => $usuarios,
+                'especialidad' => $especialidad,
+            ]);
+            } else if (Auth::user()->rol == 'medico') {
+                return view('medico.detalleCentro', [
+                'centro' => $centro,
+                'usuarios' => $usuarios,
+                'especialidad' => $especialidad,
+            ]);
+            } else {
+                return view('usuario.detalleCentro', [
+                'centro' => $centro,
+                'usuarios' => $usuarios,
+                'especialidad' => $especialidad,
+            ]);
+            }
+        }
+        if (isEmpty(Auth::user())) {
+            return view('usuario.detalleCentro', [
+                'centro' => $centro,
+                'usuarios' => $usuarios,
+                'especialidad' => $especialidad,
+            ]);
+        }
+    }
+
+
+
     /**
      * Show the form for creating a new resource.
      */
