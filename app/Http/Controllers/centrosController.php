@@ -72,26 +72,26 @@ class centrosController extends Controller
         }
 
         $usuarios = $usuariosQuery->paginate(8);
-        
+
         if (isset(Auth::user()->rol)) {
             if (Auth::user()->rol == 'admin') {
                 return view('web.detalleCentro', [
-                'centro' => $centro,
-                'usuarios' => $usuarios,
-                'especialidad' => $especialidad,
-            ]);
+                    'centro' => $centro,
+                    'usuarios' => $usuarios,
+                    'especialidad' => $especialidad,
+                ]);
             } else if (Auth::user()->rol == 'medico') {
                 return view('medico.detalleCentro', [
-                'centro' => $centro,
-                'usuarios' => $usuarios,
-                'especialidad' => $especialidad,
-            ]);
+                    'centro' => $centro,
+                    'usuarios' => $usuarios,
+                    'especialidad' => $especialidad,
+                ]);
             } else {
                 return view('usuario.detalleCentro', [
-                'centro' => $centro,
-                'usuarios' => $usuarios,
-                'especialidad' => $especialidad,
-            ]);
+                    'centro' => $centro,
+                    'usuarios' => $usuarios,
+                    'especialidad' => $especialidad,
+                ]);
             }
         }
         if (isEmpty(Auth::user())) {
@@ -135,26 +135,80 @@ class centrosController extends Controller
         return redirect('/centros');
     }
 
+
+
+    /**
+     * Añadir varios medicos de una como admin
+     */
+    public function addMedicos(Request $request, $centroId)
+    {
+        $request->validate([
+            'usuarios' => 'required|array',
+            'usuarios.*' => 'exists:users,id',
+        ]);
+
+        $centro = Centro::findOrFail($centroId);
+
+        foreach ($request->usuarios as $usuarioId) {
+            $usuario = User::where('id', $usuarioId)
+                ->whereIn('rol', ['medico', 'admin'])
+                ->first();
+
+            if ($usuario && !$centro->componentes->contains($usuario->id)) {
+                $centro->componentes()->attach($usuario->id);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Usuarios asignados correctamente.');
+    }
+
+
+
     /**
      * muestra los detalles del centro y personal, sin noticias.
      */
     public function show(Centro $centro)
     {
-        //
-
         if (isset(Auth::user()->rol)) {
+
+            $usuariosAsignados = $centro->componentes()->paginate(8);
+            $usuariosAsignadosIds = $centro->componentes->pluck('id');
+
+            $usuariosDisponibles = User::whereNotIn('id', $usuariosAsignadosIds)
+                ->whereIn('rol', ['medico', 'admin'])
+                ->get();
+
             if (Auth::user()->rol == 'admin') {
-                return view('web.detalleCentro', ['centro' => $centro, 'usuarios' => $centro->componentes()->Paginate(8)]);
+                return view('web.detalleCentro', [
+                    'centro' => $centro,
+                    'usuarios' => $usuariosAsignados,
+                    'usuariosDisponibles' => $usuariosDisponibles
+                ]);
             } else if (Auth::user()->rol == 'medico') {
-                return view('medico.detalleCentro', ['centro' => $centro, 'usuarios' => $centro->componentes()->Paginate(8)]);
+                return view('medico.detalleCentro', [
+                    'centro' => $centro,
+                    'usuarios' => $usuariosAsignados,
+                    'usuariosDisponibles' => $usuariosDisponibles
+                ]);
             } else {
-                return view('usuario.detalleCentro', ['centro' => $centro, 'usuarios' => $centro->componentes()->Paginate(8)]);
+                return view('usuario.detalleCentro', [
+                    'centro' => $centro,
+                    'usuarios' => $usuariosAsignados,
+                    'usuariosDisponibles' => $usuariosDisponibles
+                ]);
             }
         }
-        if (isEmpty(Auth::user())) {
-            return view('usuario.detalleCentro', ['centro' => $centro, 'usuarios' => $centro->componentes()->get()]);
+
+        // Para usuarios no autenticados o sin rol definido
+        if (empty(Auth::user())) {
+            return view('usuario.detalleCentro', [
+                'centro' => $centro,
+                'usuarios' => $centro->componentes()->get(),
+                'usuariosDisponibles' => collect() // colección vacía para evitar errores
+            ]);
         }
     }
+
 
 
     //muestra el centro con sus noticias

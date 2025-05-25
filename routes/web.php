@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/citas/pacientes', [citasController::class, 'citaPacientes']);
     Route::get('/noticias/borrar/{noticia}', [noticiasController::class, "destroy"])->name("noticias.destroy");
     Route::get('/noticias/borrar/{noticia}/centro', [noticiasController::class, "centroDestroy"])->name("noticias.destroy");
+    Route::post('/centros/{centro}/medico', [centrosController::class, 'addMedicos'])->name('centros.addMedicos');
 });
 
 

@@ -39,6 +39,71 @@
             background-color: #333;
             margin: 10px 0;
         }
+
+        .user-selection {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .user-card {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .user-card:hover {
+            background: #f1f8ff;
+            border-color: #86b7fe;
+        }
+
+        .user-card img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+
+        .user-info {
+            flex-grow: 1;
+        }
+
+        .user-name {
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+
+        .user-email {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .submit-section {
+            margin-top: 1.5rem;
+            text-align: right;
+        }
     </style>
 
     <div class="detalle">
@@ -60,8 +125,7 @@
                 <td>{{ $centro->telefono }}</td>
                 <td> <img src="{{ asset($centro->imagen) }}" width="70px" height="70px"></td>
 
-                <td><a href="/centros/{{ $centro->id }}/usuario/{{ Auth::user()->id }}"
-                        class="btn btn-outline-info">+</a>
+                <td><a href="/centros/{{ $centro->id }}/usuario/{{ Auth::user()->id }}" class="btn btn-outline-info">+</a>
                     <a href="/centros/noticias/{{ $centro->id }}" class="btn btn-outline-success">N</a>
                     <a href="/centros/borrar/{{ $centro->id }}" class="btn btn-outline-danger">B</a>
 
@@ -117,7 +181,46 @@
         </table>
     </div>
 
-{{$usuarios->links()}}
+    {{ $usuarios->links() }}
+
+
+
+
+    @if ($usuariosDisponibles->count() > 0)
+        <div class="user-selection">
+            <h5 class="title">Asignar nuevos usuarios al centro</h5>
+            <hr class="separator mx-3">
+
+            <form action="/centros/{{$centro->id}}/medico" method="POST">
+                @csrf
+
+                <div class="user-grid">
+                    @foreach ($usuariosDisponibles as $usuario)
+                        <label class="user-card">
+                            <input type="checkbox" name="usuarios[]" value="{{ $usuario->id }}"
+                                class="form-check-input me-2">
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode($usuario->name) }}" alt="Avatar">
+                            <div class="user-info">
+                                <div class="user-name">{{ $usuario->name }}</div>
+                                <div class="user-email">{{ $usuario->email }}</div>
+                                <div class="user-role">{{ ucfirst($usuario->rol) }}</div>
+                            </div>
+                        </label>
+                    @endforeach
+                </div>
+
+                <div class="submit-section mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Añadir usuarios seleccionados
+                    </button>
+                </div>
+            </form>
+        </div>
+    @else
+        <div class="alert alert-info">No hay usuarios disponibles para asignar.</div>
+    @endif
+
+
 
 
 
