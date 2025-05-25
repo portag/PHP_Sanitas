@@ -54,6 +54,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/noticias/borrar/{noticia}', [noticiasController::class, "destroy"])->name("noticias.destroy");
     Route::get('/noticias/borrar/{noticia}/centro', [noticiasController::class, "centroDestroy"])->name("noticias.destroy");
     Route::post('/centros/{centro}/medico', [centrosController::class, 'addMedicos'])->name('centros.addMedicos');
+    Route::post('/usuarios/imagen', [ProfileController::class, 'updateImagen']);
+
 });
 
 

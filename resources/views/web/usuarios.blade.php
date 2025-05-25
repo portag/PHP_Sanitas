@@ -55,7 +55,19 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->fnacimiento }}</td>
-                    <td> <img src="{{ asset($user->imagen) }}" width="70px" height="70px"></td>
+                    <td>
+                        <img src="{{ asset($user->imagen) }}" width="70px" height="70px" class="mb-1"><br>
+                        @if (Auth::user()->id == $user->id || Auth::user()->rol === 'admin')
+                            <form action="/usuarios/imagen" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $user->id }}">
+                                <input type="file" name="imagen" class="form-control form-control-sm mb-1"
+                                    accept="image/*">
+                                <button type="submit" class="btn btn-sm btn-outline-primary">Cambiar</button>
+                            </form>
+                        @endif
+                    </td>
                     <td>
                         @if (Auth::user()->id != $user->id)
                             <form action="/usuarios/rol" style="width: 250px">
@@ -77,6 +89,6 @@
             @endforeach
 
         </table>
-        {{$users->links()}}
+        {{ $users->links() }}
     </div>
 @endsection
